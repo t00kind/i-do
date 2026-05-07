@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import FinalCard from "./FinalCard";
 
 const HERO_SIZE = "clamp(42px, 8.5vw, 130px)";
 
@@ -39,33 +40,32 @@ export default function HomeClient() {
         .to(".hero-2-top", { autoAlpha: 1, ease: "power2.out" }, 0.35)
         .to(".hero-2-top", { y: "-28vh", ease: "power2.inOut" }, 0.7);
 
-      // Stage 3: по красоте
+      // Stage 3: «По красоте» появляется — одновременно «ТО» плавно уходит → «ДЕЛАЙ»
       tl.to(".caps-wrap", { autoAlpha: 1 }, 1.4)
-        .to(".cap-1", { autoAlpha: 1 }, 1.5);
+        .to(".cap-1", { autoAlpha: 1 }, 1.4)
+        .to(".hero-text-a", { autoAlpha: 0, ease: "power2.inOut", duration: 0.5 }, 1.4)
+        .to(".hero-text-b", { autoAlpha: 1, ease: "power2.inOut", duration: 0.5 }, 1.4);
 
       // cap-1 → cap-2
       tl.set(".cap-1", { autoAlpha: 0 }, 2.6)
         .set(".cap-2", { autoAlpha: 1 }, 2.6);
 
-      // cap-2 → cap-3: сначала появляется ЛУЧШЕ ВСЕХ
+      // cap-2 → cap-3: ЛУЧШЕ ВСЕХ
       tl.set(".cap-2", { autoAlpha: 0 }, 3.8)
         .set(".cap-3", { autoAlpha: 1 }, 3.8);
 
-      // Только потом, с паузой, «ТО» пропадает → остаётся «ДЕЛАЙ»
-      tl.set(".hero-text-a", { autoAlpha: 0 }, 4.4)
-        .set(".hero-text-b", { autoAlpha: 1 }, 4.4);
-
-      // Stage 4: ДЕЛАЙ и ЛУЧШЕ ВСЕХ резко вырастают, фон темнеет
-      tl.to(".hero-2-top", { scale: 5, ease: "power3.in" }, 5.2)
-        .to(".cap-3", { scale: 5, ease: "power3.in" }, 5.2)
-        .to(".bg-overlay", { autoAlpha: 1, ease: "power2.in" }, 5.2)
-        .to([".menu-logo", ".menu-contacts"], { autoAlpha: 0 }, 5.4);
+      // Stage 4: ДЕЛАЙ и ЛУЧШЕ ВСЕХ медленно разрастаются, фон долго темнеет
+      tl.to(".hero-2-top", { scale: 5, ease: "power2.inOut", duration: 1.6 }, 5.4)
+        .to(".cap-3", { scale: 5, ease: "power2.inOut", duration: 1.6 }, 5.4)
+        .to(".bg-overlay", { autoAlpha: 1, ease: "power1.inOut", duration: 1.8 }, 5.2)
+        // меню остаётся, просто меняет цвет с чёрного на белый вместе с затемнением
+        .to([".menu-logo", ".menu-contacts"], { color: "#ffffff", duration: 1.2, ease: "power1.inOut" }, 5.2);
 
       // Stage 5: финальная карточка плавно нарастает
       tl.to(
         [".final-logo", ".final-tagline-1", ".final-tagline-2"],
         { autoAlpha: 1, ease: "power1.inOut", duration: 1.4 },
-        6.4,
+        7.2,
       );
     }, rootRef);
 
@@ -74,7 +74,7 @@ export default function HomeClient() {
 
   return (
     <div ref={rootRef} className="relative">
-      <div className="scroll-track relative h-[600vh]">
+      <div className="scroll-track relative h-[700vh]">
         {/* overflow НЕ hidden — текст должен взрываться за пределы при scale */}
         <div className="sticky top-0 h-screen w-full">
 
@@ -150,26 +150,7 @@ export default function HomeClient() {
           </div>
 
           {/* Финальная карточка */}
-          <div className="pointer-events-none absolute inset-0 z-40 flex flex-col items-center justify-center gap-5 px-6 text-center text-white">
-            <div
-              className="final-logo hero-display"
-              style={{ fontSize: "clamp(80px, 18vw, 280px)", visibility: "hidden", opacity: 0 }}
-            >
-              I DO
-            </div>
-            <div
-              className="final-tagline-1"
-              style={{ fontSize: "clamp(13px, 1.3vw, 18px)", fontWeight: 500, letterSpacing: "0.08em", textTransform: "uppercase", visibility: "hidden", opacity: 0 }}
-            >
-              Студия разработки и&nbsp;маркетинга
-            </div>
-            <div
-              className="final-tagline-2"
-              style={{ fontSize: "clamp(16px, 1.6vw, 24px)", fontWeight: 400, letterSpacing: "-0.01em", visibility: "hidden", opacity: 0 }}
-            >
-              Для тех, кто выбирает быть лучшим
-            </div>
-          </div>
+          <FinalCard />
 
         </div>
       </div>
