@@ -7,6 +7,8 @@ export default function FinalCard() {
           fontSize: "clamp(60px, 12vw, 200px)",
           visibility: "hidden",
           opacity: 0,
+          fontFamily: "var(--font-syne), sans-serif",
+          letterSpacing: "-0.03em",
         }}
       >
         I DO
@@ -15,13 +17,14 @@ export default function FinalCard() {
       <div
         className="final-tagline-1"
         style={{
-          fontSize: "clamp(11px, 1vw, 15px)",
-          fontWeight: 500,
-          letterSpacing: "0.1em",
+          fontSize: "clamp(13px, 1.3vw, 18px)",
+          fontWeight: 400,
+          letterSpacing: "0.08em",
           textTransform: "uppercase",
           visibility: "hidden",
           opacity: 0,
           color: "rgba(255,255,255,0.55)",
+          fontFamily: "var(--font-mono), monospace",
         }}
       >
         Студия разработки и&nbsp;маркетинга

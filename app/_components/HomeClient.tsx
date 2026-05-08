@@ -96,7 +96,7 @@ export default function HomeClient() {
             <a
               href="mailto:hello@i-do.studio"
               className="menu-contacts absolute top-1/2 -translate-y-1/2 select-none text-[#0b0b0b]"
-              style={{ right: "1.5rem", fontSize: "20px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.01em" }}
+              style={{ right: "1.5rem", fontSize: "15px", fontWeight: 400, textTransform: "uppercase", letterSpacing: "0.06em", fontFamily: "var(--font-mono), monospace" }}
             >
               Контакты
             </a>
