@@ -80,6 +80,10 @@ export default function HomeClient() {
       );
 
       // ─── Approach section timeline ─────────────────────────────────────────
+      // Измеряем реальную ширину буквы Е до любых gsap.set
+      const eEl = rootRef.current?.querySelector<HTMLElement>(".approach-last-e");
+      const eShift = eEl ? eEl.getBoundingClientRect().width / 2 : 0;
+
       gsap.set(".approach-result", { scale: 1.35, autoAlpha: 0, y: 50, transformOrigin: "50% 50%" });
       gsap.set(".approach-other", { autoAlpha: 0, y: 24 });
 
@@ -97,8 +101,10 @@ export default function HomeClient() {
       approachTl
         .to(".approach-other", { autoAlpha: 1, y: 0, ease: "power2.out", duration: 0.35 }, 0.0)
         .to(".approach-result", { autoAlpha: 1, y: 0, ease: "power2.out", duration: 0.35 }, 0.08)
-        // Затем: РЕЗУЛЬТАТЕ сжимается, остальное уходит в blur
+        // Затем: РЕЗУЛЬТАТЕ сжимается, Е отпадает, слово едет ровно на пол-ширины Е
         .to(".approach-result", { scale: 1, duration: 0.55 }, 0.55)
+        .to(".approach-last-e", { autoAlpha: 0, ease: "power2.in", duration: 0.3 }, 0.62)
+        .to(".approach-result-word", { x: eShift, ease: "power2.inOut", duration: 0.3 }, 0.62)
         .to(".approach-other", { filter: "blur(18px)", autoAlpha: 0.12, duration: 0.55 }, 0.55);
 
     }, rootRef);

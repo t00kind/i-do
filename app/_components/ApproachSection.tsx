@@ -34,7 +34,7 @@ export default function ApproachSection() {
             </p>
           </div>
 
-          {/* РЕЗУЛЬТАТЕ — остаётся чётким, сжимается */}
+          {/* РЕЗУЛЬТАТЕ — Е отпадает, слово компенсирует сдвигом вправо */}
           <div
             className="approach-result hero-display"
             style={{
@@ -46,7 +46,7 @@ export default function ApproachSection() {
               textAlign: "center",
             }}
           >
-            РЕЗУЛЬТАТЕ
+            <span className="approach-result-word">РЕЗУЛЬТАТ<span className="approach-last-e">Е</span></span>
           </div>
 
         </div>
