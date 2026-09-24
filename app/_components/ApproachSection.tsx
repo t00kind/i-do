@@ -32,37 +32,6 @@ export default function ApproachSection() {
         <div className="sticky top-0 h-screen w-full overflow-hidden">
 
           {/* НАШ ПОДХОД + МЫ НАЦЕЛЕНЫ НА */}
-          <div className="approach-header pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-[2.5vh] px-6 text-center">
-            <h2
-              className="approach-title"
-              style={{
-                fontSize: "clamp(42px, 10vw, 158px)",
-                lineHeight: 0.9,
-                letterSpacing: "-0.035em",
-                color: "rgba(255,255,255,0.75)",
-                fontFamily: "var(--font-syne), sans-serif",
-                fontWeight: 900,
-                textTransform: "uppercase",
-              }}
-            >
-              НАШ ПОДХОД
-            </h2>
-
-            <p
-              className="approach-subline"
-              style={{
-                fontSize: "clamp(22px, 5.5vw, 88px)",
-                lineHeight: 1.1,
-                fontWeight: 400,
-                letterSpacing: "-0.01em",
-                color: "rgba(255,255,255,0.88)",
-                fontFamily: "var(--font-sans)",
-                textTransform: "uppercase",
-              }}
-            >
-              МЫ&nbsp;НАЦЕЛЕНЫ&nbsp;НА
-            </p>
-          </div>
 
           {/* РЕЗУЛЬТАТ */}
           <div
@@ -81,14 +50,6 @@ export default function ApproachSection() {
             }}
           >
             РЕЗУЛЬТАТ
-          </div>
-
-          {/* Crosshair */}
-          <div
-            className="approach-crosshair pointer-events-none absolute text-white"
-            style={{ top: "50%", left: "50%" }}
-          >
-            <ApproachCrosshair />
           </div>
 
         </div>
