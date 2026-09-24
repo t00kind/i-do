@@ -64,28 +64,24 @@ export default function HomeClient() {
         7.2,
       );
 
-      // Stage 6: FinalCard текст светится, потом гаснет — переход к НАШ ПОДХОД
-      tl.to(
-        [".final-logo", ".final-tagline-1", ".final-tagline-2"],
-        {
-          textShadow: "0 0 18px #fff, 0 0 55px rgba(255,255,255,0.45), 0 0 110px rgba(255,255,255,0.2)",
-          ease: "power1.inOut",
-          duration: 0.8,
-        },
-        9.0,
-      ).to(
-        [".final-logo", ".final-tagline-1", ".final-tagline-2"],
-        { autoAlpha: 0, ease: "power2.in", duration: 1.1 },
-        9.7,
-      );
-
       // ─── Approach section timeline ─────────────────────────────────────────
-      // Измеряем реальную ширину буквы Е до любых gsap.set
-      const eEl = rootRef.current?.querySelector<HTMLElement>(".approach-last-e");
-      const eShift = eEl ? eEl.getBoundingClientRect().width / 2 : 0;
-
-      gsap.set(".approach-result", { scale: 1.35, autoAlpha: 0, y: 50, transformOrigin: "50% 50%" });
-      gsap.set(".approach-other", { autoAlpha: 0, y: 24 });
+      // НАШ ПОДХОД виден сразу — без анимации
+      // РЕЗУЛЬТАТ и прицел — скрыты, готовы к появлению
+      gsap.set(".approach-subline", { autoAlpha: 0 });
+      gsap.set(".approach-result", {
+        autoAlpha: 0.4,       // сразу полупрозрачный — "уже там"
+        xPercent: -50,
+        yPercent: -50,
+        x: "30vw",
+        y: "12vh",
+      });
+      gsap.set(".approach-crosshair", {
+        autoAlpha: 0,
+        xPercent: -50,
+        yPercent: -50,
+        x: "-12vw",
+        y: "-4vh",
+      });
 
       const approachTl = gsap.timeline({
         defaults: { ease: "power2.inOut" },
@@ -97,15 +93,24 @@ export default function HomeClient() {
         },
       });
 
-      // Вход: всё плавно появляется
       approachTl
-        .to(".approach-other", { autoAlpha: 1, y: 0, ease: "power2.out", duration: 0.35 }, 0.0)
-        .to(".approach-result", { autoAlpha: 1, y: 0, ease: "power2.out", duration: 0.35 }, 0.08)
-        // Затем: РЕЗУЛЬТАТЕ сжимается, Е отпадает, слово едет ровно на пол-ширины Е
-        .to(".approach-result", { scale: 1, duration: 0.55 }, 0.55)
-        .to(".approach-last-e", { autoAlpha: 0, ease: "power2.in", duration: 0.3 }, 0.62)
-        .to(".approach-result-word", { x: eShift, ease: "power2.inOut", duration: 0.3 }, 0.62)
-        .to(".approach-other", { filter: "blur(18px)", autoAlpha: 0.12, duration: 0.55 }, 0.55);
+        // 1. МЫ НАЦЕЛЕНЫ НА + прицел появляются одновременно
+        .to(".approach-subline", { autoAlpha: 1, ease: "power2.out", duration: 0.35 }, 0.0)
+        .to(".approach-crosshair", { autoAlpha: 1, ease: "power2.out", duration: 0.35 }, 0.0)
+        // 2. Пустой скролл — прицел медленно дрейфует (мы "ищем")
+        .to(".approach-crosshair", { x: "-4vw", y: "6vh", ease: "none", duration: 1.1 }, 0.4)
+        // 3. Прицел обнаружил цель — летит к РЕЗУЛЬТАТ
+        .to(".approach-crosshair", { x: "30vw", y: "12vh", ease: "power2.inOut", duration: 0.75 }, 1.5)
+        // 4. Попадание — РЕЗУЛЬТАТ вспыхивает
+        .to(".approach-result", { autoAlpha: 1, ease: "power1.out", duration: 0.22 }, 2.18)
+        // 5. РЕЗУЛЬТАТ в центр, прицел гаснет, остальное блюрится
+        .to(".approach-result", { x: 0, y: 0, ease: "power3.inOut", duration: 0.85 }, 2.38)
+        .to(".approach-crosshair", { autoAlpha: 0, duration: 0.3 }, 2.38)
+        .to(
+          ".approach-header",
+          { filter: "blur(24px)", autoAlpha: 0.1, ease: "power2.inOut", duration: 0.75 },
+          2.38,
+        );
 
     }, rootRef);
 
@@ -148,7 +153,7 @@ export default function HomeClient() {
             className="hero-1 hero-display absolute inset-0 z-10 m-0 flex items-center justify-center px-6 text-center text-[#0b0b0b]"
             style={{ fontSize: HERO_SIZE }}
           >
-            Если уж&nbsp;начал
+            В КОНЕЧНОМ ИТОГЕ
           </h1>
 
           {/* Stage 2 */}
@@ -156,9 +161,9 @@ export default function HomeClient() {
             className="hero-2-top hero-display absolute inset-0 z-20 flex items-center justify-center px-6 text-center text-[#0b0b0b]"
             style={{ fontSize: HERO_SIZE, visibility: "hidden", opacity: 0, transformOrigin: "50% 50%" }}
           >
-            <span className="hero-text-a">То&nbsp;делай</span>
+            <span className="hero-text-a"></span>
             <span className="hero-text-b absolute" style={{ visibility: "hidden", opacity: 0 }}>
-              Делай
+              ОСТАНЕТСЯ
             </span>
           </div>
 
@@ -168,13 +173,13 @@ export default function HomeClient() {
             style={{ top: "62%", visibility: "hidden", opacity: 0 }}
           >
             <span className="cap-1 hero-display absolute text-center text-[#0b0b0b]" style={{ fontSize: HERO_SIZE, visibility: "hidden", opacity: 0 }}>
-              По&nbsp;красоте
+              ЛИШЬ
             </span>
             <span className="cap-2 hero-display absolute text-center text-[#0b0b0b]" style={{ fontSize: HERO_SIZE, visibility: "hidden", opacity: 0 }}>
-              От&nbsp;души
+              ТО
             </span>
             <span className="cap-3 hero-display absolute text-center text-[#0b0b0b]" style={{ fontSize: HERO_SIZE, visibility: "hidden", opacity: 0, transformOrigin: "50% 50%" }}>
-              Лучше&nbsp;всех
+              ЧТО ТЫ СДЕЛАЛ
             </span>
           </div>
 

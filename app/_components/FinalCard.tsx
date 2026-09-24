@@ -31,15 +31,18 @@ export default function FinalCard() {
       </div>
 
       <div
-        className="final-tagline-2 hero-display"
+        className="final-tagline-2"
         style={{
           fontSize: "clamp(22px, 3.5vw, 54px)",
+          fontWeight: 400,
+          fontFamily: "var(--font-sans)",
+          letterSpacing: "-0.01em",
           visibility: "hidden",
           opacity: 0,
-          lineHeight: 1,
+          lineHeight: 1.15,
         }}
       >
-        Для тех, кто выбирает быть лучшим
+        Те, кто действуют сейчас.
       </div>
     </div>
   );
